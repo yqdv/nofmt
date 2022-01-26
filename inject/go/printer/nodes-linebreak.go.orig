@@ -1,0 +1,19 @@
+func (p *printer) linebreak(line, min int, ws whiteSpace, newSection bool) (nbreaks int) {
+	n := nlimit(line - p.pos.Line)
+	if n < min {
+		n = min
+	}
+	if n > 0 {
+		p.print(ws)
+		if newSection {
+			p.print(formfeed)
+			n--
+			nbreaks = 2
+		}
+		nbreaks += n
+		for ; n > 0; n-- {
+			p.print(newline)
+		}
+	}
+	return
+}

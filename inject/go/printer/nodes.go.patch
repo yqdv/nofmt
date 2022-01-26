@@ -1,0 +1,24 @@
+--- nodes.go.orig	2022-02-02 04:28:03.237122000 +0800
++++ nodes.go	2022-02-02 05:06:59.536417001 +0800
+@@ -48,9 +48,6 @@
+ //
+ func (p *printer) linebreak(line, min int, ws whiteSpace, newSection bool) (nbreaks int) {
+ 	n := nlimit(line - p.pos.Line)
+-	if n < min {
+-		n = min
+-	}
+ 	if n > 0 {
+ 		p.print(ws)
+ 		if newSection {
+@@ -62,6 +59,11 @@
+ 		for ; n > 0; n-- {
+ 			p.print(newline)
+ 		}
++	} else if min > 0 {
++		if !newSection {
++			p.print(token.SEMICOLON)
++		}
++		p.print(blank)
+ 	}
+ 	return
+ }
