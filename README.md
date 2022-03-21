@@ -6,7 +6,7 @@ A gofmt alternative that gets out of your way.
 Install `go`
 ```bash
 #--- Installation ---
-VER=1.17.7
+VER=1.18
 cd $HOME
 rm -rf $HOME/goroot
 mkdir -p $HOME/goroot $HOME/go/bin

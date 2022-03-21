@@ -1,6 +1,6 @@
---- nodes.go.orig	2022-02-02 04:28:03.237122000 +0800
-+++ nodes.go	2022-02-02 05:06:59.536417001 +0800
-@@ -48,9 +48,6 @@
+--- nodes.go.orig	2022-03-21 16:27:56.509768673 +0800
++++ nodes.go	2022-03-21 16:27:46.581818839 +0800
+@@ -47,9 +47,6 @@
  //
  func (p *printer) linebreak(line, min int, ws whiteSpace, newSection bool) (nbreaks int) {
  	n := nlimit(line - p.pos.Line)
@@ -10,7 +10,7 @@
  	if n > 0 {
  		p.print(ws)
  		if newSection {
-@@ -62,6 +59,11 @@
+@@ -61,6 +58,11 @@
  		for ; n > 0; n-- {
  			p.print(newline)
  		}
