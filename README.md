@@ -96,6 +96,10 @@ patch $HOME/goroot/src/go/printer/nodes.go < inject/go/printer/nodes.go.patch
 cp $HOME/goroot/src/go/format/{format.go,format.go.orig}
 patch $HOME/goroot/src/go/format/format.go < inject/go/format/format.go.patch
 
+# Patch go/doc/comment/print.go (for spaces)
+cp $HOME/goroot/src/go/doc/comment/{print.go,print.go.orig}
+patch $HOME/goroot/src/go/doc/comment/print.go < inject/go/doc/comment/print.go.patch
+
 # Patch cmd/gofmt/gofmt.go (for spaces)
 cp $HOME/goroot/src/cmd/gofmt/{gofmt.go,gofmt.go.orig}
 patch $HOME/goroot/src/cmd/gofmt/gofmt.go < inject/cmd/gofmt/gofmt.go.patch
@@ -125,6 +129,7 @@ hash -r
 
 # Revert patched files
 mv -f $HOME/goroot/src/go/format/{format.go.orig,format.go}
+mv -f $HOME/goroot/src/go/doc/comment/{print.go.orig,print.go}
 mv -f $HOME/goroot/src/cmd/gofmt/{gofmt.go.orig,gofmt.go}
 mv -f $HOME/src/tools/cmd/goimports/{goimports.go.orig,goimports.go}
 

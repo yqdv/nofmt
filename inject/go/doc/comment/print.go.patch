@@ -1,0 +1,11 @@
+--- print.go.orig	2022-09-10 10:29:51.779576803 -0700
++++ print.go	2022-09-10 10:30:08.759307936 -0700
+@@ -220,7 +220,7 @@
+ 			var line string
+ 			line, md, _ = strings.Cut(md, "\n")
+ 			if line != "" {
+-				out.WriteString("\t")
++				out.WriteString("    ")
+ 				out.WriteString(line)
+ 			}
+ 			out.WriteString("\n")
