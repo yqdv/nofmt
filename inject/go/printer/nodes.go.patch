@@ -1,24 +1,72 @@
---- nodes.go.orig	2022-08-31 10:37:43.000000000 -0700
-+++ nodes.go	2022-09-07 23:20:01.292198316 -0700
-@@ -46,9 +46,6 @@
- // future (not yet interspersed) comments in this function.
- func (p *printer) linebreak(line, min int, ws whiteSpace, newSection bool) (nbreaks int) {
- 	n := nlimit(line - p.pos.Line)
--	if n < min {
--		n = min
--	}
- 	if n > 0 {
- 		p.print(ws)
- 		if newSection {
-@@ -60,6 +57,11 @@
- 		for ; n > 0; n-- {
- 			p.print(newline)
- 		}
-+	} else if min > 0 {
+--- nodes.go.orig	2023-12-12 16:13:17.649896278 -0700
++++ nodes.go	2023-12-12 20:25:30.230289999 -0700
+@@ -63,6 +63,51 @@
+ 	return
+ }
+ 
++func (p *printer) linebreakStmtList(line, min int, ws whiteSpace, newSection bool) (nbreaks int) {
++	n := nlimit(line - p.pos.Line)
++	if n > 0 {
++		if newSection {
++			p.print(formfeed)
++			n--
++			nbreaks = 2
++		}
++		nbreaks += n
++		for ; n > 0; n-- {
++			p.print(newline)
++		}
++	} else {
 +		if !newSection {
 +			p.print(token.SEMICOLON)
 +		}
 +		p.print(blank)
- 	}
- 	return
++	}
++	return
++}
++
++func (p *printer) linebreakBlock(line, min int, ws whiteSpace, newSection bool) (nbreaks int) {
++	n := nlimit(line - p.pos.Line)
++	if p.output[len(p.output)-1] == ':' {
++		if n < min { n = min }
++	}
++	if n > 0 {
++		if newSection {
++			p.print(formfeed)
++			n--
++			nbreaks = 2
++		}
++		nbreaks += n
++		for ; n > 0; n-- {
++			p.print(newline)
++		}
++	} else {
++		if !newSection {
++			p.print(token.SEMICOLON)
++		}
++		p.print(blank)
++	}
++	return
++}
++
+ // setComment sets g as the next comment if g != nil and if node comments
+ // are enabled - this mode is used when printing source code fragments such
+ // as exports only. It assumes that there is no pending comment in p.comments
+@@ -1202,7 +1247,7 @@
+ 			if len(p.output) > 0 {
+ 				// only print line break if we are not at the beginning of the output
+ 				// (i.e., we are not printing only a partial program)
+-				p.linebreak(p.lineFor(s.Pos()), 1, ignore, i == 0 || nindent == 0 || p.linesFrom(line) > 0)
++				p.linebreakStmtList(p.lineFor(s.Pos()), 1, ignore, i == 0 || nindent == 0 || p.linesFrom(line) > 0)
+ 			}
+ 			p.recordLine(&line)
+ 			p.stmt(s, nextIsRBrace && i == len(list)-1)
+@@ -1230,7 +1275,7 @@
+ 	p.setPos(b.Lbrace)
+ 	p.print(token.LBRACE)
+ 	p.stmtList(b.List, nindent, true)
+-	p.linebreak(p.lineFor(b.Rbrace), 1, ignore, true)
++	p.linebreakBlock(p.lineFor(b.Rbrace), 1, ignore, true)
+ 	p.setPos(b.Rbrace)
+ 	p.print(token.RBRACE)
  }
