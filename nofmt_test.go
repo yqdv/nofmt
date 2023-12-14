@@ -1112,3 +1112,31 @@ func TestLoopLabelDedent(t *testing.T) {
 	`)
 	run_test(t, input, golden)
 }
+
+func TestNoopLineSemi(t *testing.T) {
+	input := redent(`
+		package main
+		
+		func main() {
+			liner, e := readline.NewEx(&readline.Config{
+				Prompt: GetStandardPrompt(),
+			}); if e != nil { return LogErr(e) }; defer liner.Close()
+			for {
+				line, e := liner.Readline()
+			}
+		}
+	`)
+	golden := redent(`
+		package main
+		
+		func main() {
+			liner, e := readline.NewEx(&readline.Config{
+				Prompt: GetStandardPrompt(),
+			}); if e != nil { return LogErr(e) }; defer liner.Close()
+			for {
+				line, e := liner.Readline()
+			}
+		}
+	`)
+	run_test(t, input, golden)
+}

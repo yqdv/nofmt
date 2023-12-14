@@ -1,5 +1,5 @@
---- nodes.go.orig	2023-12-12 16:13:17.649896278 -0700
-+++ nodes.go	2023-12-12 20:25:30.230289999 -0700
+--- nodes.go.orig	2023-12-12 21:08:39.850121959 -0700
++++ nodes.go	2023-12-14 18:07:21.591254158 -0700
 @@ -63,6 +63,51 @@
  	return
  }
@@ -17,7 +17,7 @@
 +			p.print(newline)
 +		}
 +	} else {
-+		if !newSection {
++		if !newSection || p.output[len(p.output)-1] == ')' {
 +			p.print(token.SEMICOLON)
 +		}
 +		p.print(blank)

@@ -76,7 +76,7 @@ func (p *printer) linebreakStmtList(line, min int, ws whiteSpace, newSection boo
 			p.print(newline)
 		}
 	} else {
-		if !newSection {
+		if !newSection || p.output[len(p.output)-1] == ')' {
 			p.print(token.SEMICOLON)
 		}
 		p.print(blank)
