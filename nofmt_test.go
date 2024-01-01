@@ -1118,7 +1118,7 @@ func TestNoopLineSemi(t *testing.T) {
 		package main
 		
 		func main() {
-			liner, e := readline.NewEx(&readline.Config{
+			liner, e := readlinexx.NewEx(&readlinexx.Config{
 				Prompt: GetStandardPrompt(),
 			}); if e != nil { return LogErr(e) }; defer liner.Close()
 			for {
@@ -1130,7 +1130,7 @@ func TestNoopLineSemi(t *testing.T) {
 		package main
 		
 		func main() {
-			liner, e := readline.NewEx(&readline.Config{
+			liner, e := readlinexx.NewEx(&readlinexx.Config{
 				Prompt: GetStandardPrompt(),
 			}); if e != nil { return LogErr(e) }; defer liner.Close()
 			for {
