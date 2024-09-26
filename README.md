@@ -31,7 +31,7 @@ Nofmt attempts to achieve the following goals:
 Install `go`
 ```bash
 #--- Installation ---
-VER=1.22.1
+VER=1.23.1
 cd $HOME
 rm -rf $HOME/goroot
 mkdir -p $HOME/goroot $HOME/go/bin
