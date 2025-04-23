@@ -1,6 +1,6 @@
---- nodes.go.orig	2024-02-13 13:57:22.832239263 -0700
-+++ nodes.go	2024-02-13 13:59:50.858705624 -0700
-@@ -60,6 +60,51 @@
+--- nodes.go.orig	2025-04-23 16:30:41.296844322 -0700
++++ nodes.go	2025-04-23 16:48:51.192969128 -0700
+@@ -60,6 +60,53 @@
  	return
  }
  
@@ -28,7 +28,9 @@
 +func (p *printer) linebreakBlock(line, min int, ws whiteSpace, newSection bool) (nbreaks int) {
 +	n := nlimit(line - p.pos.Line)
 +	if p.output[len(p.output)-1] == ':' {
-+		if n < min { n = min }
++		if n < min {
++			n = min
++		}
 +	}
 +	if n > 0 {
 +		if newSection {
@@ -52,7 +54,7 @@
  // setComment sets g as the next comment if g != nil and if node comments
  // are enabled - this mode is used when printing source code fragments such
  // as exports only. It assumes that there is no pending comment in p.comments
-@@ -1202,7 +1247,7 @@
+@@ -1200,7 +1247,7 @@
  			if len(p.output) > 0 {
  				// only print line break if we are not at the beginning of the output
  				// (i.e., we are not printing only a partial program)
@@ -61,7 +63,7 @@
  			}
  			p.recordLine(&line)
  			p.stmt(s, nextIsRBrace && i == len(list)-1)
-@@ -1230,7 +1275,7 @@
+@@ -1228,7 +1275,7 @@
  	p.setPos(b.Lbrace)
  	p.print(token.LBRACE)
  	p.stmtList(b.List, nindent, true)
