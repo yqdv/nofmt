@@ -31,7 +31,7 @@ Nofmt attempts to achieve the following goals:
 Install `go`
 ```bash
 #--- Installation ---
-VER=1.25.5
+VER=1.26.0
 cd $HOME
 rm -rf $HOME/goroot
 mkdir -p $HOME/goroot $HOME/go/bin
@@ -91,4 +91,5 @@ hash -r
 
 # Revert the source file patch
 cp $HOME/goroot/src/go/printer/{nodes.go.orig,nodes.go}
+md5sum $HOME/goroot/src/go/printer/nodes.go
 ```
